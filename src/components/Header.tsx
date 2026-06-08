@@ -35,7 +35,7 @@ export function Header() {
   return (
     <header className="site-header" aria-label="Primary navigation">
       <a className="brand" href="#top" aria-label="SkryxDev home">
-        <span className="brand-mark">S</span>
+        <img className="brand-logo" src="/favicon.svg" alt="" aria-hidden="true" />
         <span>SkryxDev</span>
       </a>
 
