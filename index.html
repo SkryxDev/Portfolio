@@ -8,6 +8,16 @@
       name="description"
       content="SkryxDev portfolio: websites, Minecraft plugins, Discord bots, and small Linux setups."
     />
+    <script>
+      (() => {
+        try {
+          const theme = localStorage.getItem('skryxdev-theme')
+          document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark'
+        } catch {
+          document.documentElement.dataset.theme = 'dark'
+        }
+      })()
+    </script>
     <title>SkryxDev Portfolio</title>
   </head>
   <body>

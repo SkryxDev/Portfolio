@@ -1,20 +1,53 @@
 :root {
-  color: #15171a;
-  background: #f6f7f9;
+  color: #f4f4f5;
+  color-scheme: dark;
+  background: #0f1012;
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  --bg: #0f1012;
+  --surface: #17191d;
+  --text: #f4f4f5;
+  --muted: #a4a8b1;
+  --line: #2a2d33;
+  --line-strong: #434851;
+  --accent: #f4f4f5;
+  --accent-dark: #f4f4f5;
+  --header-bg: rgba(15, 16, 18, 0.9);
+  --hover-bg: #1d2025;
+  --tag-bg: #111317;
+  --tag-text: #e4e6ea;
+  --input-bg: #101114;
+  --button-primary-bg: #f4f4f5;
+  --button-primary-text: #101114;
+  --button-secondary-bg: #17191d;
+  --focus-ring: rgba(244, 244, 245, 0.14);
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+}
+
+[data-theme='light'] {
+  color: #15171a;
+  color-scheme: light;
+  background: #f6f7f9;
   --bg: #f6f7f9;
   --surface: #ffffff;
   --text: #15171a;
   --muted: #5f6672;
   --line: #d9dee6;
   --line-strong: #b9c1cc;
-  --accent: #0f8f68;
-  --accent-dark: #0b5f49;
-  --accent-blue: #0c7890;
+  --accent: #15171a;
+  --accent-dark: #15171a;
+  --header-bg: rgba(246, 247, 249, 0.92);
+  --hover-bg: #ffffff;
+  --tag-bg: #f9fafb;
+  --tag-text: #303640;
+  --input-bg: #ffffff;
+  --button-primary-bg: #15171a;
+  --button-primary-text: #ffffff;
+  --button-secondary-bg: #ffffff;
+  --focus-ring: rgba(21, 23, 26, 0.12);
   --shadow: 0 18px 50px rgba(20, 26, 36, 0.08);
 }
 
@@ -31,6 +64,9 @@ body {
   min-width: 320px;
   background: var(--bg);
   color: var(--text);
+  transition:
+    background 220ms ease,
+    color 220ms ease;
 }
 
 a {
@@ -61,8 +97,8 @@ button {
   justify-content: space-between;
   gap: 24px;
   width: 100%;
-  border-bottom: 1px solid rgba(217, 222, 230, 0.88);
-  background: rgba(246, 247, 249, 0.92);
+  border-bottom: 1px solid var(--line);
+  background: var(--header-bg);
   padding: 16px max(24px, calc((100vw - 1120px) / 2));
   backdrop-filter: blur(18px);
 }
@@ -103,9 +139,52 @@ button {
   font-size: 0.95rem;
 }
 
+.theme-toggle {
+  display: inline-grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  background: var(--hover-bg);
+  border-color: var(--line-strong);
+  outline: none;
+}
+
+.theme-toggle:active {
+  transform: scale(0.94);
+}
+
+.theme-toggle-icon {
+  animation: theme-icon-pop 220ms ease;
+}
+
+@keyframes theme-icon-pop {
+  from {
+    opacity: 0;
+    transform: rotate(-35deg) scale(0.72);
+  }
+
+  to {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
 .nav-links a:hover,
 .nav-links a:focus-visible {
-  background: var(--surface);
+  background: var(--hover-bg);
   color: var(--text);
   outline: 1px solid var(--line);
 }
@@ -185,7 +264,7 @@ h3 {
   border-radius: 7px;
   background: var(--surface);
   padding: 6px 10px;
-  color: #303640;
+  color: var(--tag-text);
   font-size: 0.9rem;
   font-weight: 650;
 }
@@ -212,13 +291,13 @@ h3 {
 }
 
 .button.primary {
-  background: var(--text);
-  color: #ffffff;
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
 }
 
 .button.secondary {
   border: 1px solid var(--line-strong);
-  background: var(--surface);
+  background: var(--button-secondary-bg);
   color: var(--text);
 }
 
@@ -312,9 +391,9 @@ h3 {
   min-height: 30px;
   border: 1px solid var(--line);
   border-radius: 7px;
-  background: #f9fafb;
+  background: var(--tag-bg);
   padding: 6px 9px;
-  color: #303640;
+  color: var(--tag-text);
   font-size: 0.86rem;
   font-weight: 650;
 }
@@ -356,7 +435,7 @@ h3 {
   width: fit-content;
   min-height: 40px;
   border-radius: 8px;
-  color: #303640;
+  color: var(--tag-text);
   font-weight: 650;
 }
 
@@ -379,7 +458,7 @@ h3 {
 .contact-form label {
   display: grid;
   gap: 8px;
-  color: #303640;
+  color: var(--tag-text);
   font-weight: 700;
 }
 
@@ -388,7 +467,7 @@ h3 {
   width: 100%;
   border: 1px solid var(--line-strong);
   border-radius: 8px;
-  background: #ffffff;
+  background: var(--input-bg);
   padding: 12px 13px;
   color: var(--text);
   outline: none;
@@ -401,8 +480,8 @@ h3 {
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(15, 143, 104, 0.13);
+  border-color: var(--text);
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 .form-button {
