@@ -1,4 +1,4 @@
-import { HeartCrack } from 'lucide-react'
+import { Heart } from 'lucide-react'
 
 export function Footer() {
   return (
@@ -6,7 +6,7 @@ export function Footer() {
       <span>SkryxDev</span>
       <span className="made-with">
         Made with
-        <HeartCrack className="footer-icon" size={16} aria-hidden="true" />
+        <Heart className="footer-icon" size={16} aria-hidden="true" />
         by SkryxDev
       </span>
     </footer>

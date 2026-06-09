@@ -58,7 +58,7 @@ export function Contact() {
             name="message"
             rows={5}
             required
-            placeholder="Tell me what you need."
+            placeholder="Tell me what you need. Also leave your telegram @."
           />
         </label>
         <button className="button primary form-button" type="submit">

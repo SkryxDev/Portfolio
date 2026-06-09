@@ -1,14 +1,12 @@
 import { ArrowUpRight, Mail } from 'lucide-react'
-import { heroStack } from '../data/content'
 
 export function Hero() {
   return (
     <section className="hero section" id="top">
       <div className="hero-copy">
-        <p className="eyebrow">Web dev / Minecraft / Linux</p>
         <h1>SkryxDev</h1>
         <p className="hero-text">
-          I am 16, from Vicenza, and I make websites, Minecraft plugins, Discord bots, and small
+          I am 16, from Vicenza (Italy), and I make websites, Minecraft plugins, Discord bots, and small
           Linux setups.
         </p>
 
@@ -26,12 +24,6 @@ export function Hero() {
             <ArrowUpRight size={18} aria-hidden="true" />
             GitHub
           </a>
-        </div>
-
-        <div className="hero-stack" aria-label="Core stack">
-          {heroStack.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
         </div>
       </div>
     </section>

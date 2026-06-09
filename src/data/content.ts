@@ -2,8 +2,6 @@ import { Blocks, Bot, Code2, Server } from 'lucide-react'
 
 export const navItems = ['About', 'Work', 'Skills', 'Contact']
 
-export const heroStack = ['Websites', 'MC plugins', 'Bots', 'Linux']
-
 export const services = [
   {
     icon: Code2,
@@ -16,7 +14,7 @@ export const services = [
     icon: Blocks,
     title: 'Plugins for Minecraft',
     description:
-      'Custom Paper/Spigot stuff: commands, events, configs, permissions, and small utilities.',
+      'Custom Paper/Spigot stuff: commands, events, configs, permissions, and small utilities. Libraries too.',
     details: ['Paper', 'Spigot', 'Maven', 'YAML'],
   },
   {
@@ -37,7 +35,7 @@ export const services = [
 export const skillGroups = [
   {
     title: 'Frontend',
-    items: ['React', 'TypeScript', 'Vite', 'HTML', 'CSS'],
+    items: ['React', 'TypeScript', 'Vite', 'HTML', 'CSS', "Next.js (learning)"],
   },
   {
     title: 'Bots & APIs',
@@ -45,7 +43,7 @@ export const skillGroups = [
   },
   {
     title: 'Minecraft',
-    items: ['Java', 'Paper', 'Spigot', 'Maven', 'YAML'],
+    items: ['Java', 'Paper', 'Spigot', 'Maven', 'YAML', "Gradle (learning)"],
   },
   {
     title: 'Servers',
