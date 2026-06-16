@@ -43,7 +43,7 @@ export const skillGroups = [
   },
   {
     title: 'Minecraft',
-    items: ['Java', 'Paper', 'Spigot', 'Maven', 'YAML', "Gradle (learning)"],
+    items: ['Java', 'Paper', 'Spigot', 'Maven', 'YAML', "Gradle (learning)", "Kotlin (learning)"],
   },
   {
     title: 'Servers',
