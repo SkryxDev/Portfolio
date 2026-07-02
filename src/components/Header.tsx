@@ -1,65 +1,125 @@
-import { Moon, Sun } from 'lucide-react'
+import { Menu, Moon, Sun, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { navItems } from '../data/content'
-
-type Theme = 'dark' | 'light'
-
-const themeStorageKey = 'skryxdev-theme'
-
-function getInitialTheme(): Theme {
-  if (typeof window === 'undefined') {
-    return 'dark'
-  }
-
-  try {
-    return window.localStorage.getItem(themeStorageKey) === 'light' ? 'light' : 'dark'
-  } catch {
-    return 'dark'
-  }
-}
+import { navItems, siteConfig } from '../data/content'
+import { useTheme } from '../hooks/useTheme'
 
 export function Header() {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme)
-  const isLight = theme === 'light'
+  const { isLight, toggleTheme } = useTheme()
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState('')
 
   useEffect(() => {
-    document.documentElement.dataset.theme = theme
-
-    try {
-      window.localStorage.setItem(themeStorageKey, theme)
-    } catch {
-      // Keep the visual theme even if storage is blocked.
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 8)
+      if (window.scrollY < 160) {
+        setActiveSection('')
+      }
     }
-  }, [theme])
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const sections = navItems
+      .map((item) => document.getElementById(item.href.slice(1)))
+      .filter((section): section is HTMLElement => section !== null)
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id)
+          }
+        }
+      },
+      { rootMargin: '-40% 0px -55% 0px' },
+    )
+
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (!menuOpen) return
+
+    document.body.style.overflow = 'hidden'
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [menuOpen])
 
   return (
-    <header className="site-header" aria-label="Primary navigation">
-      <a className="brand" href="#top" aria-label="SkryxDev home">
-        <img className="brand-logo" src="/favicon.svg" alt="" aria-hidden="true" />
-        <span>SkryxDev</span>
-      </a>
+    <header className={`site-header${scrolled ? ' scrolled' : ''}`}>
+      <div className="container header-inner">
+        <a className="brand" href="#top" aria-label={`${siteConfig.name} home`}>
+          <img className="brand-logo" src="/favicon.svg" alt="" aria-hidden="true" />
+          <span className="brand-name">{siteConfig.name}</span>
+        </a>
 
-      <nav className="nav-links">
-        <button
-          className="theme-toggle"
-          type="button"
-          aria-label={isLight ? 'Switch to dark mode' : 'Switch to light mode'}
-          aria-pressed={!isLight}
-          onClick={() => setTheme((currentTheme) => (currentTheme === 'light' ? 'dark' : 'light'))}
-        >
-          {isLight ? (
-            <Sun key="sun" className="theme-toggle-icon" size={17} aria-hidden="true" />
-          ) : (
-            <Moon key="moon" className="theme-toggle-icon" size={17} aria-hidden="true" />
-          )}
-        </button>
+        <nav className="site-nav" aria-label="Primary navigation">
+          <ul className="nav-list">
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <a
+                  className={`nav-link${activeSection === item.href.slice(1) ? ' active' : ''}`}
+                  href={item.href}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
 
-        {navItems.map((item) => (
-          <a key={item} href={`#${item.toLowerCase()}`}>
-            {item}
-          </a>
-        ))}
-      </nav>
+          <button
+            className="icon-button theme-toggle"
+            type="button"
+            aria-label={isLight ? 'Switch to dark mode' : 'Switch to light mode'}
+            onClick={toggleTheme}
+          >
+            {isLight ? (
+              <Sun size={18} aria-hidden="true" />
+            ) : (
+              <Moon size={18} aria-hidden="true" />
+            )}
+          </button>
+
+          <button
+            className="icon-button menu-toggle"
+            type="button"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
+          </button>
+        </nav>
+      </div>
+
+      <div id="mobile-menu" className={`mobile-menu${menuOpen ? ' open' : ''}`}>
+        <nav aria-label="Mobile navigation">
+          <ul className="mobile-nav-list">
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <a className="mobile-nav-link" href={item.href} onClick={() => setMenuOpen(false)}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
     </header>
   )
 }

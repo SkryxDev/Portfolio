@@ -1,6 +1,30 @@
 import { Blocks, Bot, Code2, Server } from 'lucide-react'
 
-export const navItems = ['About', 'Work', 'Skills', 'Contact']
+export const siteConfig = {
+  name: 'SkryxDev',
+  email: 'dev@skryxdev.eu',
+  github: 'https://github.com/skryxdev',
+  githubLabel: 'github.com/skryxdev',
+  discord: 'skryxdev',
+  location: 'Vicenza, Italy',
+  age: 16,
+}
+
+export const navItems = [
+  { label: 'About', href: '#about' },
+  { label: 'Work', href: '#work' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Contact', href: '#contact' },
+]
+
+export const terminalLines: Array<{ type: 'cmd' | 'out'; text: string }> = [
+  { type: 'cmd', text: 'whoami' },
+  { type: 'out', text: 'skryxdev — 16 y/o student developer' },
+  { type: 'cmd', text: 'ls ~/projects' },
+  { type: 'out', text: 'websites/  mc-plugins/  discord-bots/  linux/' },
+  { type: 'cmd', text: 'cat status.txt' },
+  { type: 'out', text: 'open to small projects — say hi' },
+]
 
 export const services = [
   {
@@ -12,15 +36,16 @@ export const services = [
   },
   {
     icon: Blocks,
-    title: 'Plugins for Minecraft',
+    title: 'Minecraft Plugins',
     description:
       'Custom Paper/Spigot stuff: commands, events, configs, permissions, and small utilities. Libraries too.',
     details: ['Paper', 'Spigot', 'Maven', 'YAML'],
   },
   {
     icon: Bot,
-    title: 'Bots',
-    description: 'Moderation, logs, commands, and small automations between Discord and Minecraft.',
+    title: 'Discord Bots',
+    description:
+      'Moderation, logs, commands, and small automations between Discord and Minecraft.',
     details: ['Commands', 'Logs', 'Moderation', 'Webhooks'],
   },
   {
@@ -35,7 +60,7 @@ export const services = [
 export const skillGroups = [
   {
     title: 'Frontend',
-    items: ['React', 'TypeScript', 'Vite', 'HTML', 'CSS', "Next.js (learning)"],
+    items: ['React', 'TypeScript', 'Vite', 'HTML', 'CSS', 'Next.js (learning)'],
   },
   {
     title: 'Bots & APIs',
@@ -43,7 +68,7 @@ export const skillGroups = [
   },
   {
     title: 'Minecraft',
-    items: ['Java', 'Paper', 'Spigot', 'Maven', 'YAML', "Gradle (learning)", "Kotlin (learning)"],
+    items: ['Java', 'Paper', 'Spigot', 'Maven', 'YAML', 'Gradle (learning)', 'Kotlin (learning)'],
   },
   {
     title: 'Servers',

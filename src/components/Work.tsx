@@ -1,30 +1,34 @@
 import { services } from '../data/content'
+import { Reveal } from './Reveal'
 
 export function Work() {
   return (
     <section className="section" id="work">
-      <div className="section-heading">
-        <p className="eyebrow">Work</p>
-        <h2>What I can build</h2>
-      </div>
+      <div className="container">
+        <Reveal>
+          <h2 className="section-title">What I do</h2>
+        </Reveal>
 
-      <div className="service-grid">
-        {services.map((service) => {
-          const Icon = service.icon
+        <div className="work-list">
+          {services.map((service, index) => {
+            const Icon = service.icon
 
-          return (
-            <article className="service-card" key={service.title}>
-              <Icon size={24} aria-hidden="true" />
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
-              <div className="tag-list" aria-label={`${service.title} tools`}>
-                {service.details.map((detail) => (
-                  <span key={detail}>{detail}</span>
-                ))}
-              </div>
-            </article>
-          )
-        })}
+            return (
+              <Reveal delay={80 + index * 60} key={service.title}>
+                <article className="work-row">
+                  <h3 className="work-title">
+                    <Icon size={19} aria-hidden="true" />
+                    {service.title}
+                  </h3>
+                  <div className="work-info">
+                    <p className="work-description">{service.description}</p>
+                    <p className="work-tags">{service.details.join(' · ')}</p>
+                  </div>
+                </article>
+              </Reveal>
+            )
+          })}
+        </div>
       </div>
     </section>
   )
