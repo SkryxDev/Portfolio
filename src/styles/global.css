@@ -335,8 +335,8 @@ button {
 
 .site-header.scrolled {
   background: var(--header-bg);
-  backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
   border-bottom-color: var(--border);
 }
 
