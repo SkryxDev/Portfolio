@@ -1,6 +1,7 @@
 import { Menu, Moon, Sun, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { navItems, siteConfig } from '../data/content'
+import { getLenis } from '../hooks/useSmoothScroll'
 import { useTheme } from '../hooks/useTheme'
 
 export function Header() {
@@ -46,6 +47,7 @@ export function Header() {
     if (!menuOpen) return
 
     document.body.style.overflow = 'hidden'
+    getLenis()?.stop()
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setMenuOpen(false)
@@ -55,6 +57,7 @@ export function Header() {
     window.addEventListener('keydown', handleKeyDown)
     return () => {
       document.body.style.overflow = ''
+      getLenis()?.start()
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [menuOpen])

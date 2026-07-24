@@ -6,8 +6,11 @@ import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { Skills } from './components/Skills'
 import { Work } from './components/Work'
+import { useSmoothScroll } from './hooks/useSmoothScroll'
 
 function App() {
+  useSmoothScroll()
+
   return (
     <>
       <a className="skip-link" href="#top">
