@@ -8,9 +8,12 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.next
+out
 dist
 dist-ssr
 *.local
+.freebuff
 
 # Editor directories and files
 .vscode/*
@@ -23,3 +26,4 @@ dist-ssr
 *.sln
 *.sw?
 .claude
+knowledge.md

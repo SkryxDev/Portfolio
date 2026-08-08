@@ -1,6 +1,5 @@
 import Lenis from 'lenis'
 import { useEffect } from 'react'
-import 'lenis/dist/lenis.css'
 
 let lenis: Lenis | null = null
 

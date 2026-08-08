@@ -1,3 +1,5 @@
+'use client'
+
 import { Menu, Moon, Sun, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { navItems, siteConfig } from '../data/content'

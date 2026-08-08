@@ -1,0 +1,15 @@
+node_modules
+.next
+out
+dist
+.git
+.gitignore
+.freebuff
+.idea
+.vscode
+*.log
+npm-debug.log*
+Dockerfile
+docker-compose.yml
+.dockerignore
+knowledge.md

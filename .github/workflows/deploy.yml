@@ -2,34 +2,22 @@ name: Deploy
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
+      - name: Build & deploy
+        run: docker compose up -d --build --force-recreate
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Deploy to VPS
-        uses: easingthemes/ssh-deploy@v5.1.1
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_KEY }}
-          REMOTE_HOST: ${{ secrets.VPS_HOST }}
-          REMOTE_USER: ${{ secrets.VPS_USER }}
-          SOURCE: "dist/"
-          TARGET: "/var/www/portfolio/"
-          ARGS: "-rlgoDzvc --delete"
+      - name: Cleanup old images
+        run: docker image prune -f

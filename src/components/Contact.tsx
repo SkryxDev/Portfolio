@@ -1,3 +1,5 @@
+'use client'
+
 import { ArrowUpRight, Mail, MessageCircle, Send } from 'lucide-react'
 import type { FormEvent } from 'react'
 import { siteConfig } from '../data/content'
