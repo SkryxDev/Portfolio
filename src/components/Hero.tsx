@@ -1,55 +1,20 @@
 import { Mail } from 'lucide-react'
-import type { CSSProperties } from 'react'
 import { siteConfig, terminalLines } from '../data/content'
 import { GitHubIcon } from './GitHubIcon'
 import { Reveal } from './Reveal'
-
-const FIRST = 'Skryx'
-const LAST = 'Dev'
 
 export function Hero() {
   return (
     <section className="hero">
       <div className="container hero-inner">
         <div className="hero-copy">
-          <p className="hero-eyebrow">
-            <span className="status-dot" aria-hidden="true" />
-            <span className="eyebrow-slash" aria-hidden="true">
-              //
-            </span>
-            student developer — {siteConfig.location}
-          </p>
-
           <h1 className="hero-title" aria-label={siteConfig.name}>
-            <span aria-hidden="true">
-              {FIRST.split('').map((char, i) => (
-                <span
-                  className="hero-letter"
-                  key={i}
-                  style={{ '--i': i } as CSSProperties}
-                >
-                  {char}
-                </span>
-              ))}
-            </span>
+            <span aria-hidden="true">Skryx</span>
             <span className="hero-accent" aria-hidden="true">
-              {LAST.split('').map((char, i) => (
-                <span
-                  className="hero-letter"
-                  key={i}
-                  style={{ '--i': FIRST.length + i } as CSSProperties}
-                >
-                  {char}
-                </span>
-              ))}
+              Dev
             </span>
             <span className="hero-dot" aria-hidden="true">
-              <span
-                className="hero-letter"
-                style={{ '--i': FIRST.length + LAST.length } as CSSProperties}
-              >
-                .
-              </span>
+              .
             </span>
           </h1>
 

@@ -46,7 +46,6 @@
   --aurora-a: rgba(78, 168, 255, 0.3);
   --aurora-b: rgba(34, 211, 238, 0.18);
   --glow-strong: rgba(78, 168, 255, 0.35);
-  --pulse-color: rgba(78, 168, 255, 0.45);
 
   /* Buttons */
   --btn-bg: #eef4ff;
@@ -103,7 +102,6 @@
   --aurora-a: rgba(21, 101, 208, 0.12);
   --aurora-b: rgba(14, 155, 184, 0.1);
   --glow-strong: rgba(21, 101, 208, 0.25);
-  --pulse-color: rgba(21, 101, 208, 0.35);
 
   --btn-bg: #0d1b30;
   --btn-hover: #173056;
@@ -616,45 +614,16 @@ button {
   align-items: center;
 }
 
-.hero-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  margin-bottom: 1.4rem;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--text-muted);
-  opacity: 0;
-  animation: fade-in 0.7s ease forwards;
-  animation-delay: 0.05s;
-}
-
-/* pulsing availability dot */
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: pulse 2.2s ease-out infinite;
-}
-
 .hero-title {
   font-family: var(--font-display);
   font-size: clamp(2.8rem, 8vw, 5.25rem);
   font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.02em;
-}
-
-.hero-letter {
-  display: inline-block;
   opacity: 0;
-  transform: translateY(0.55em);
-  animation: letter-rise 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  animation-delay: calc(var(--i) * 55ms + 200ms);
+  transform: translateY(18px);
+  animation: rise-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 0.15s;
 }
 
 .hero-accent {
@@ -1150,35 +1119,10 @@ a.contact-link:hover {
    Animations
    ========================================================================== */
 
-@keyframes letter-rise {
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes fade-in {
-  to {
-    opacity: 1;
-  }
-}
-
 @keyframes rise-in {
   to {
     opacity: 1;
     transform: none;
-  }
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 var(--pulse-color);
-  }
-  70% {
-    box-shadow: 0 0 0 9px transparent;
-  }
-  100% {
-    box-shadow: 0 0 0 0 transparent;
   }
 }
 
@@ -1295,8 +1239,7 @@ a.contact-link:hover {
   }
 
   .reveal,
-  .hero-eyebrow,
-  .hero-letter,
+  .hero-title,
   .hero-text,
   .hero-actions {
     opacity: 1;
@@ -1304,11 +1247,6 @@ a.contact-link:hover {
     animation: none;
   }
 
-  .hero-letter {
-    opacity: 1;
-  }
-
-  .status-dot,
   .terminal-cursor,
   .bg-aurora.a,
   .bg-aurora.b {
