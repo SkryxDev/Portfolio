@@ -41,7 +41,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&family=Unbounded:wght@500;600;700&display=swap"
           rel="stylesheet"
         />
         <Script
@@ -56,7 +56,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </a>
         <Background />
         <Header />
-        <main id="top">{children}</main>
+        <main id="top" className="site-main">
+          {children}
+        </main>
         <Footer />
         <SmoothScroll />
       </body>

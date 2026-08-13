@@ -1,10 +1,11 @@
 'use client'
 
-import { Menu, Moon, Sun, X } from 'lucide-react'
+import { Mail, Menu, Moon, Sun, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { navItems, siteConfig } from '../data/content'
 import { getLenis } from '../hooks/useSmoothScroll'
 import { useTheme } from '../hooks/useTheme'
+import { GitHubIcon } from './GitHubIcon'
 
 export function Header() {
   const { isLight, toggleTheme } = useTheme()
@@ -66,7 +67,7 @@ export function Header() {
 
   return (
     <header className={`site-header${scrolled ? ' scrolled' : ''}`}>
-      <div className="container header-inner">
+      <div className="header-inner">
         <a className="brand" href="#top" aria-label={`${siteConfig.name} home`}>
           <img className="brand-logo" src="/favicon.svg" alt="" aria-hidden="true" />
           <span className="brand-name">{siteConfig.name}</span>
@@ -86,29 +87,50 @@ export function Header() {
             ))}
           </ul>
 
-          <button
-            className="icon-button theme-toggle"
-            type="button"
-            aria-label={isLight ? 'Switch to dark mode' : 'Switch to light mode'}
-            onClick={toggleTheme}
-          >
-            {isLight ? (
-              <Sun size={18} aria-hidden="true" />
-            ) : (
-              <Moon size={18} aria-hidden="true" />
-            )}
-          </button>
+          <div className="header-actions">
+            <div className="sidebar-socials">
+              <a
+                className="icon-button"
+                href={siteConfig.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub profile"
+              >
+                <GitHubIcon />
+              </a>
+              <a
+                className="icon-button"
+                href={`mailto:${siteConfig.email}`}
+                aria-label="Send an email"
+              >
+                <Mail size={18} aria-hidden="true" />
+              </a>
+            </div>
 
-          <button
-            className="icon-button menu-toggle"
-            type="button"
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            {menuOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
-          </button>
+            <button
+              className="icon-button theme-toggle"
+              type="button"
+              aria-label={isLight ? 'Switch to dark mode' : 'Switch to light mode'}
+              onClick={toggleTheme}
+            >
+              {isLight ? (
+                <Sun size={18} aria-hidden="true" />
+              ) : (
+                <Moon size={18} aria-hidden="true" />
+              )}
+            </button>
+
+            <button
+              className="icon-button menu-toggle"
+              type="button"
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              {menuOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
+            </button>
+          </div>
         </nav>
       </div>
 

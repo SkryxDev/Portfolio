@@ -1,5 +1,5 @@
 import { Mail } from 'lucide-react'
-import { siteConfig, terminalLines } from '../data/content'
+import { siteConfig } from '../data/content'
 import { GitHubIcon } from './GitHubIcon'
 import { Reveal } from './Reveal'
 
@@ -44,34 +44,13 @@ export function Hero() {
             </a>
           </div>
         </Reveal>
+      </div>
 
-        <Reveal delay={150} className="hero-visual">
-          <div className="terminal" role="img" aria-label="Terminal window introducing SkryxDev">
-            <div className="terminal-bar">
-              <span className="terminal-dot red" />
-              <span className="terminal-dot yellow" />
-              <span className="terminal-dot green" />
-              <span className="terminal-title">skryx@dev: ~</span>
-            </div>
-            <div className="terminal-body">
-              {terminalLines.map((line, index) =>
-                line.type === 'cmd' ? (
-                  <p className="terminal-line" key={index}>
-                    <span className="terminal-prompt">$</span> {line.text}
-                  </p>
-                ) : (
-                  <p className="terminal-line out" key={index}>
-                    {line.text}
-                  </p>
-                ),
-              )}
-              <p className="terminal-line">
-                <span className="terminal-prompt">$</span>
-                <span className="terminal-cursor" aria-hidden="true" />
-              </p>
-            </div>
-          </div>
-        </Reveal>
+      <div className="hero-status" aria-hidden="true">
+        <span className="hero-status-user">skryx@dev: ~</span>
+        <span className="hero-status-prompt">$</span>
+        <span className="hero-status-text">open to small projects — say hi</span>
+        <span className="hero-status-cursor" />
       </div>
     </section>
   )

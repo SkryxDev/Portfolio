@@ -17,15 +17,6 @@ export const navItems = [
   { label: 'Contact', href: '#contact' },
 ]
 
-export const terminalLines: Array<{ type: 'cmd' | 'out'; text: string }> = [
-  { type: 'cmd', text: 'whoami' },
-  { type: 'out', text: 'skryxdev — 16 y/o student developer' },
-  { type: 'cmd', text: 'ls ~/projects' },
-  { type: 'out', text: 'websites/  mc-plugins/  discord-bots/  linux/' },
-  { type: 'cmd', text: 'cat status.txt' },
-  { type: 'out', text: 'open to small projects — say hi' },
-]
-
 export const services = [
   {
     icon: Code2,
