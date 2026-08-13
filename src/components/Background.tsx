@@ -9,8 +9,8 @@ type Rgb = [number, number, number]
 
 function getPalette(): { dot: Rgb; accent: Rgb; baseAlpha: number } {
   return document.documentElement.dataset.theme === 'light'
-    ? { dot: [33, 26, 18], accent: [180, 83, 9], baseAlpha: 0.12 }
-    : { dot: [236, 229, 214], accent: [240, 166, 62], baseAlpha: 0.09 }
+    ? { dot: [13, 27, 48], accent: [21, 101, 208], baseAlpha: 0.12 }
+    : { dot: [232, 240, 255], accent: [78, 168, 255], baseAlpha: 0.09 }
 }
 
 export function Background() {
@@ -124,6 +124,8 @@ export function Background() {
 
   return (
     <>
+      <div className="bg-aurora a" aria-hidden="true" />
+      <div className="bg-aurora b" aria-hidden="true" />
       <div className="bg-spotlight" aria-hidden="true" />
       <canvas ref={canvasRef} className="bg-canvas" aria-hidden="true" />
     </>
