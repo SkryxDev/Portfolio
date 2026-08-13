@@ -630,7 +630,12 @@ button {
   background: var(--hero-gradient);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  color: var(--accent);
+  -webkit-text-fill-color: transparent;
+  /* Safari clips the gradient before the last glyph of the span: extend
+     the paint area past the final character and compensate with margin. */
+  padding-right: 0.08em;
+  margin-right: -0.08em;
 }
 
 .hero-dot {
