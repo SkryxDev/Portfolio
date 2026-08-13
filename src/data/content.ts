@@ -74,4 +74,8 @@ export const skillGroups = [
     title: 'Servers',
     items: ['Linux', 'Docker', 'Pterodactyl', 'Proxmox', 'Firewalls'],
   },
+  {
+    title: 'Databases',
+    items: ['MySQL', 'MariaDB', 'PostgreSQL', 'Redis', 'MongoDB', 'SQLite'],
+  },
 ]
