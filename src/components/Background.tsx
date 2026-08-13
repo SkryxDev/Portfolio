@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 
 const GAP = 26
-const MOUSE_RADIUS = 260
+const MOUSE_RADIUS = 140
 
 type Rgb = [number, number, number]
 
