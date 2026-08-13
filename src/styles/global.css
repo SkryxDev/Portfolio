@@ -500,8 +500,12 @@ button {
    ========================================================================== */
 
 .hero {
-  padding-top: calc(var(--header-height) + clamp(2.5rem, 7vh, 4.5rem));
-  padding-bottom: clamp(3.5rem, 9vh, 6rem);
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding-top: var(--header-height);
+  padding-bottom: 3rem;
 }
 
 .hero-inner {
@@ -939,6 +943,11 @@ a.contact-link:hover {
    ========================================================================== */
 
 @media (max-width: 960px) {
+  .hero {
+    min-height: 0;
+    padding-top: calc(var(--header-height) + 4rem);
+  }
+
   .hero-inner {
     grid-template-columns: 1fr;
   }
