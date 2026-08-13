@@ -2,17 +2,17 @@
 
 import { useEffect, useRef } from 'react'
 
-const GAP = 28
+const GAP = 26
+const MOUSE_RADIUS = 260
 
 type Rgb = [number, number, number]
 
-function getPalette(): { dot: Rgb; alpha: number } {
+function getPalette(): { dot: Rgb; accent: Rgb; baseAlpha: number } {
   return document.documentElement.dataset.theme === 'light'
-    ? { dot: [14, 20, 32], alpha: 0.1 }
-    : { dot: [232, 236, 244], alpha: 0.07 }
+    ? { dot: [14, 20, 32], accent: [13, 126, 166], baseAlpha: 0.12 }
+    : { dot: [232, 236, 244], accent: [34, 211, 238], baseAlpha: 0.1 }
 }
 
-/** Subtle, static dot texture — quiet background, no motion, no mouse effects. */
 export function Background() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -24,19 +24,6 @@ export function Background() {
     let width = 0
     let height = 0
 
-    const draw = () => {
-      const { dot, alpha } = getPalette()
-      ctx.clearRect(0, 0, width, height)
-      ctx.fillStyle = `rgba(${dot[0]}, ${dot[1]}, ${dot[2]}, ${alpha})`
-      for (let x = (width % GAP) / 2; x < width; x += GAP) {
-        for (let y = (height % GAP) / 2; y < height; y += GAP) {
-          ctx.beginPath()
-          ctx.arc(x, y, 1, 0, Math.PI * 2)
-          ctx.fill()
-        }
-      }
-    }
-
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2)
       width = window.innerWidth
@@ -44,24 +31,101 @@ export function Background() {
       canvas.width = width * dpr
       canvas.height = height * dpr
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      draw()
     }
 
     resize()
     window.addEventListener('resize', resize)
 
-    // Redraw when the theme flips.
-    const observer = new MutationObserver(() => draw())
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-theme'],
-    })
+    const mouse = { x: -MOUSE_RADIUS * 2, y: -MOUSE_RADIUS * 2 }
+    const target = { x: -MOUSE_RADIUS * 2, y: -MOUSE_RADIUS * 2 }
+
+    const draw = (time: number, withMouse: boolean) => {
+      const { dot, accent, baseAlpha } = getPalette()
+      ctx.clearRect(0, 0, width, height)
+
+      for (let x = (width % GAP) / 2; x < width; x += GAP) {
+        for (let y = (height % GAP) / 2; y < height; y += GAP) {
+          const wave =
+            0.5 + 0.5 * Math.sin(x * 0.012 + time * 0.8) * Math.sin(y * 0.011 - time * 0.6)
+          let alpha = baseAlpha * (0.35 + 0.65 * wave)
+          let radius = 1.1
+          let r = dot[0]
+          let g = dot[1]
+          let b = dot[2]
+
+          if (withMouse) {
+            const dx = x - mouse.x
+            const dy = y - mouse.y
+            const dist = Math.sqrt(dx * dx + dy * dy)
+            if (dist < MOUSE_RADIUS) {
+              const boost = (1 - dist / MOUSE_RADIUS) ** 2
+              alpha = Math.min(alpha + 0.55 * boost, 0.8)
+              radius += 1.5 * boost
+              r = r + (accent[0] - r) * boost
+              g = g + (accent[1] - g) * boost
+              b = b + (accent[2] - b) * boost
+            }
+          }
+
+          ctx.fillStyle = `rgba(${r | 0}, ${g | 0}, ${b | 0}, ${alpha})`
+          ctx.beginPath()
+          ctx.arc(x, y, radius, 0, Math.PI * 2)
+          ctx.fill()
+        }
+      }
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      draw(0, false)
+      const observer = new MutationObserver(() => draw(0, false))
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme'],
+      })
+      const redraw = () => draw(0, false)
+      window.addEventListener('resize', redraw)
+      return () => {
+        observer.disconnect()
+        window.removeEventListener('resize', redraw)
+        window.removeEventListener('resize', resize)
+      }
+    }
+
+    const handleMove = (event: PointerEvent) => {
+      target.x = event.clientX
+      target.y = event.clientY
+      document.documentElement.style.setProperty('--spot-x', `${event.clientX}px`)
+      document.documentElement.style.setProperty('--spot-y', `${event.clientY}px`)
+    }
+    const handleLeave = () => {
+      target.x = -MOUSE_RADIUS * 2
+      target.y = -MOUSE_RADIUS * 2
+    }
+    window.addEventListener('pointermove', handleMove, { passive: true })
+    document.documentElement.addEventListener('mouseleave', handleLeave)
+
+    let frame = 0
+    const loop = (now: number) => {
+      frame = requestAnimationFrame(loop)
+      if (document.hidden) return
+      mouse.x += (target.x - mouse.x) * 0.08
+      mouse.y += (target.y - mouse.y) * 0.08
+      draw(now / 1000, true)
+    }
+    frame = requestAnimationFrame(loop)
 
     return () => {
-      observer.disconnect()
+      cancelAnimationFrame(frame)
+      window.removeEventListener('pointermove', handleMove)
+      document.documentElement.removeEventListener('mouseleave', handleLeave)
       window.removeEventListener('resize', resize)
     }
   }, [])
 
-  return <canvas ref={canvasRef} className="bg-canvas" aria-hidden="true" />
+  return (
+    <>
+      <div className="bg-spotlight" aria-hidden="true" />
+      <canvas ref={canvasRef} className="bg-canvas" aria-hidden="true" />
+    </>
+  )
 }

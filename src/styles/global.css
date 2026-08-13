@@ -32,6 +32,7 @@
   --accent: #22d3ee;
   --accent-ink: #05242c;
   --focus-ring: rgba(34, 211, 238, 0.32);
+  --spotlight: rgba(34, 211, 238, 0.09);
 
   /* Buttons (monochrome) */
   --btn-bg: #f4f4f5;
@@ -72,6 +73,7 @@
   --accent: #0e7490;
   --accent-ink: #ffffff;
   --focus-ring: rgba(14, 116, 144, 0.25);
+  --spotlight: rgba(13, 126, 166, 0.09);
 
   --btn-bg: #17171a;
   --btn-hover: #2e2e33;
@@ -242,8 +244,20 @@ button {
 }
 
 /* ==========================================================================
-   Background — quiet dot texture
+   Background — animated dot grid + cursor spotlight
    ========================================================================== */
+
+.bg-spotlight {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    640px circle at var(--spot-x, 50%) var(--spot-y, 22%),
+    var(--spotlight),
+    transparent 72%
+  );
+}
 
 .bg-canvas {
   position: fixed;
