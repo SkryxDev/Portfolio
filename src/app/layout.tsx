@@ -16,13 +16,13 @@ const THEME_INIT = `(() => {
   } catch {
     document.documentElement.dataset.theme = 'dark'
   }
-  // Skeleton loader runs for ~2s; hold the hero entrance animation back
+  // Skeleton loader runs for ~1.2s; hold the hero entrance animation back
   // so it plays as the skeleton fades out (0 with reduced motion / no JS).
   try {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    document.documentElement.style.setProperty('--load-delay', reduced ? '0ms' : '1800ms')
+    document.documentElement.style.setProperty('--load-delay', reduced ? '0ms' : '800ms')
   } catch {
-    document.documentElement.style.setProperty('--load-delay', '1800ms')
+    document.documentElement.style.setProperty('--load-delay', '800ms')
   }
 })()`
 

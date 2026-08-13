@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react'
 import { getLenis } from '../hooks/useSmoothScroll'
 
-const HOLD_MS = 1800
-const FADE_MS = 500
+const HOLD_MS = 800
+const FADE_MS = 400
 
 export function LoadingScreen() {
   const [leaving, setLeaving] = useState(false)
