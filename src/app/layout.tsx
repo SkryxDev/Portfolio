@@ -4,6 +4,7 @@ import type { ReactNode } from 'react'
 import { Background } from '../components/Background'
 import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
+import { LoadingScreen } from '../components/LoadingScreen'
 import { SmoothScroll } from '../components/SmoothScroll'
 import 'lenis/dist/lenis.css'
 import '../styles/global.css'
@@ -14,6 +15,14 @@ const THEME_INIT = `(() => {
     document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark'
   } catch {
     document.documentElement.dataset.theme = 'dark'
+  }
+  // Skeleton loader runs for ~2s; hold the hero entrance animation back
+  // so it plays as the skeleton fades out (0 with reduced motion / no JS).
+  try {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    document.documentElement.style.setProperty('--load-delay', reduced ? '0ms' : '1800ms')
+  } catch {
+    document.documentElement.style.setProperty('--load-delay', '1800ms')
   }
 })()`
 
@@ -51,6 +60,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
       </head>
       <body>
+        <LoadingScreen />
         <a className="skip-link" href="#top">
           Skip to content
         </a>

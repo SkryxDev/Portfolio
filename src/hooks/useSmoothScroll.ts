@@ -19,6 +19,11 @@ export function useSmoothScroll() {
 
     lenis = new Lenis({ lerp: 0.11 })
 
+    // Keep the page locked while the skeleton loader is showing.
+    if (document.querySelector('.loading-screen')) {
+      lenis.stop()
+    }
+
     let frame = requestAnimationFrame(function update(time: number) {
       lenis?.raf(time)
       frame = requestAnimationFrame(update)
