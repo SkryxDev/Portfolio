@@ -26,7 +26,15 @@ export function Contact() {
     <section className="section" id="contact">
       <div className="container">
         <Reveal>
-          <h2 className="section-title">Want to build something?</h2>
+          <div className="section-head">
+            <p className="section-eyebrow">
+              <span className="eyebrow-slash" aria-hidden="true">
+                //
+              </span>
+              get in touch
+            </p>
+            <h2 className="section-title">Want to build something?</h2>
+          </div>
         </Reveal>
 
         <div className="contact-grid">

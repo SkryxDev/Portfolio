@@ -8,20 +8,29 @@ export function Hero() {
     <section className="hero">
       <div className="container hero-inner">
         <Reveal className="hero-copy">
+          <p className="hero-eyebrow">
+            <span className="eyebrow-slash" aria-hidden="true">
+              //
+            </span>
+            student developer — {siteConfig.location}
+          </p>
+
           <h1 className="hero-title">
-            {siteConfig.name}
-            <span className="hero-accent" aria-hidden="true">
+            Skryx
+            <span className="hero-accent">Dev</span>
+            <span className="hero-dot" aria-hidden="true">
               .
             </span>
           </h1>
+
           <p className="hero-text">
-            I'm {siteConfig.age}, from {siteConfig.location}, and I make websites, Minecraft
-            plugins, Discord bots, and small Linux setups.
+            I'm {siteConfig.age} and I build websites, Minecraft plugins, Discord bots, and small
+            Linux setups — from the browser down to the server room.
           </p>
 
           <div className="hero-actions">
             <a className="button primary" href={`mailto:${siteConfig.email}`}>
-              <Mail size={17} aria-hidden="true" />
+              <Mail size={16} aria-hidden="true" />
               Email me
             </a>
             <a
@@ -30,7 +39,7 @@ export function Hero() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <GitHubIcon size={17} />
+              <GitHubIcon size={16} />
               GitHub
             </a>
           </div>

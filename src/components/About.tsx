@@ -7,7 +7,15 @@ export function About() {
     <section className="section" id="about">
       <div className="container">
         <Reveal>
-          <h2 className="section-title">Who am I?</h2>
+          <div className="section-head">
+            <p className="section-eyebrow">
+              <span className="eyebrow-slash" aria-hidden="true">
+                //
+              </span>
+              who i am
+            </p>
+            <h2 className="section-title">Who am I?</h2>
+          </div>
         </Reveal>
 
         <Reveal delay={100}>
@@ -23,16 +31,16 @@ export function About() {
               to dedicate to my projects, but I really like doing this stuff, so I do my best to
               find some time to work on them and make them better.
             </p>
-            <p className="about-meta">
-              <span className="about-meta-item">
-                <MapPin size={15} aria-hidden="true" />
+
+            <ul className="about-meta">
+              <li className="about-meta-item">
+                <MapPin size={14} aria-hidden="true" />
                 {siteConfig.location}
-              </span>
-              <span className="meta-dot" aria-hidden="true" />
-              <span className="about-meta-item">{siteConfig.age} years old</span>
-              <span className="meta-dot" aria-hidden="true" />
-              <span className="about-meta-item">Student</span>
-            </p>
+              </li>
+              <li className="about-meta-item">{siteConfig.age} years old</li>
+              <li className="about-meta-item">Student</li>
+              <li className="about-meta-item">Open to small projects</li>
+            </ul>
           </div>
         </Reveal>
       </div>

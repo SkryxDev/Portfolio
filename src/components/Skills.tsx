@@ -6,7 +6,15 @@ export function Skills() {
     <section className="section" id="skills">
       <div className="container">
         <Reveal>
-          <h2 className="section-title">Skills</h2>
+          <div className="section-head">
+            <p className="section-eyebrow">
+              <span className="eyebrow-slash" aria-hidden="true">
+                //
+              </span>
+              my stack
+            </p>
+            <h2 className="section-title">Skills</h2>
+          </div>
         </Reveal>
 
         <div className="skills-grid">

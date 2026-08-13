@@ -6,7 +6,15 @@ export function Work() {
     <section className="section" id="work">
       <div className="container">
         <Reveal>
-          <h2 className="section-title">What I do</h2>
+          <div className="section-head">
+            <p className="section-eyebrow">
+              <span className="eyebrow-slash" aria-hidden="true">
+                //
+              </span>
+              what i do
+            </p>
+            <h2 className="section-title">What I do</h2>
+          </div>
         </Reveal>
 
         <div className="work-list">
@@ -17,7 +25,7 @@ export function Work() {
               <Reveal delay={80 + index * 60} key={service.title}>
                 <article className="work-row">
                   <h3 className="work-title">
-                    <Icon size={19} aria-hidden="true" />
+                    <Icon size={16} aria-hidden="true" />
                     {service.title}
                   </h3>
                   <div className="work-info">
