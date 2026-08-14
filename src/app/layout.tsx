@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { JetBrains_Mono, Space_Grotesk, Unbounded } from 'next/font/google'
 import Script from 'next/script'
 import type { ReactNode } from 'react'
 import { Background } from '../components/Background'
@@ -43,16 +44,38 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
+// Self-hosted variable fonts: one woff2 per family, latin subset only,
+// swapped in over a metric-compatible fallback (no render-blocking
+// request to fonts.googleapis.com).
+const display = Unbounded({
+  variable: '--font-display',
+  weight: 'variable',
+  subsets: ['latin'],
+  display: 'swap',
+})
+
+const sans = Space_Grotesk({
+  variable: '--font-sans',
+  weight: 'variable',
+  subsets: ['latin'],
+  display: 'swap',
+})
+
+const mono = JetBrains_Mono({
+  variable: '--font-mono',
+  weight: 'variable',
+  subsets: ['latin'],
+  display: 'swap',
+})
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${display.variable} ${sans.variable} ${mono.variable}`}
+    >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&family=Unbounded:wght@500;600;700&display=swap"
-          rel="stylesheet"
-        />
         <Script
           id="theme-init"
           strategy="beforeInteractive"

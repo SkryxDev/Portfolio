@@ -23,6 +23,18 @@ export function Background() {
 
     let width = 0
     let height = 0
+    let points: Array<{ x: number; y: number }> = []
+
+    const buildGrid = () => {
+      points = []
+      const startX = (width % GAP) / 2
+      const startY = (height % GAP) / 2
+      for (let x = startX; x < width; x += GAP) {
+        for (let y = startY; y < height; y += GAP) {
+          points.push({ x, y })
+        }
+      }
+    }
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2)
@@ -31,6 +43,7 @@ export function Background() {
       canvas.width = width * dpr
       canvas.height = height * dpr
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      buildGrid()
     }
 
     resize()
@@ -39,39 +52,66 @@ export function Background() {
     const mouse = { x: -MOUSE_RADIUS * 2, y: -MOUSE_RADIUS * 2 }
     const target = { x: -MOUSE_RADIUS * 2, y: -MOUSE_RADIUS * 2 }
 
+    // Precomputed grid + rect() for the ~3k base dots keeps the per-frame
+    // work to a single fillStyle with no path construction. Only the handful
+    // of dots near the cursor keep arc() for their round, accented glow.
     const draw = (time: number, withMouse: boolean) => {
       const { dot, accent, baseAlpha } = getPalette()
       ctx.clearRect(0, 0, width, height)
 
-      for (let x = (width % GAP) / 2; x < width; x += GAP) {
-        for (let y = (height % GAP) / 2; y < height; y += GAP) {
-          const wave =
-            0.5 + 0.5 * Math.sin(x * 0.012 + time * 0.8) * Math.sin(y * 0.011 - time * 0.6)
-          let alpha = baseAlpha * (0.35 + 0.65 * wave)
-          let radius = 1.1
-          let r = dot[0]
-          let g = dot[1]
-          let b = dot[2]
+      const boosted: Array<{
+        x: number
+        y: number
+        alpha: number
+        radius: number
+        r: number
+        g: number
+        b: number
+      }> = []
 
-          if (withMouse) {
-            const dx = x - mouse.x
-            const dy = y - mouse.y
-            const dist = Math.sqrt(dx * dx + dy * dy)
-            if (dist < MOUSE_RADIUS) {
-              const boost = (1 - dist / MOUSE_RADIUS) ** 2
-              alpha = Math.min(alpha + 0.55 * boost, 0.8)
-              radius += 1.5 * boost
-              r = r + (accent[0] - r) * boost
-              g = g + (accent[1] - g) * boost
-              b = b + (accent[2] - b) * boost
-            }
+      ctx.fillStyle = `rgb(${dot[0]}, ${dot[1]}, ${dot[2]})`
+
+      for (let i = 0; i < points.length; i++) {
+        const { x, y } = points[i]
+        const wave =
+          0.5 + 0.5 * Math.sin(x * 0.012 + time * 0.8) * Math.sin(y * 0.011 - time * 0.6)
+        let alpha = baseAlpha * (0.35 + 0.65 * wave)
+        let radius = 1.1
+        let r = dot[0]
+        let g = dot[1]
+        let b = dot[2]
+        let isBoosted = false
+
+        if (withMouse) {
+          const dx = x - mouse.x
+          const dy = y - mouse.y
+          const dist = Math.sqrt(dx * dx + dy * dy)
+          if (dist < MOUSE_RADIUS) {
+            const boost = (1 - dist / MOUSE_RADIUS) ** 2
+            alpha = Math.min(alpha + 0.55 * boost, 0.8)
+            radius += 1.5 * boost
+            r = r + (accent[0] - r) * boost
+            g = g + (accent[1] - g) * boost
+            b = b + (accent[2] - b) * boost
+            isBoosted = true
           }
-
-          ctx.fillStyle = `rgba(${r | 0}, ${g | 0}, ${b | 0}, ${alpha})`
-          ctx.beginPath()
-          ctx.arc(x, y, radius, 0, Math.PI * 2)
-          ctx.fill()
         }
+
+        if (isBoosted) {
+          boosted.push({ x, y, alpha, radius, r, g, b })
+        } else {
+          ctx.globalAlpha = alpha
+          ctx.fillRect(x - 1.1, y - 1.1, 2.2, 2.2)
+        }
+      }
+      ctx.globalAlpha = 1
+
+      for (let i = 0; i < boosted.length; i++) {
+        const b = boosted[i]
+        ctx.fillStyle = `rgba(${b.r | 0}, ${b.g | 0}, ${b.b | 0}, ${b.alpha})`
+        ctx.beginPath()
+        ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2)
+        ctx.fill()
       }
     }
 
@@ -91,11 +131,20 @@ export function Background() {
       }
     }
 
+    // Coalesce the spotlight position updates into one per frame so rapid
+    // pointermove events don't each force a style recalc + repaint.
+    let spotlightFrame = 0
+    const updateSpotlight = () => {
+      spotlightFrame = 0
+      document.documentElement.style.setProperty('--spot-x', `${target.x}px`)
+      document.documentElement.style.setProperty('--spot-y', `${target.y}px`)
+    }
     const handleMove = (event: PointerEvent) => {
       target.x = event.clientX
       target.y = event.clientY
-      document.documentElement.style.setProperty('--spot-x', `${event.clientX}px`)
-      document.documentElement.style.setProperty('--spot-y', `${event.clientY}px`)
+      if (!spotlightFrame) {
+        spotlightFrame = requestAnimationFrame(updateSpotlight)
+      }
     }
     const handleLeave = () => {
       target.x = -MOUSE_RADIUS * 2
@@ -116,6 +165,7 @@ export function Background() {
 
     return () => {
       cancelAnimationFrame(frame)
+      cancelAnimationFrame(spotlightFrame)
       window.removeEventListener('pointermove', handleMove)
       document.documentElement.removeEventListener('mouseleave', handleLeave)
       window.removeEventListener('resize', resize)

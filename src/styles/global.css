@@ -13,10 +13,7 @@
 :root {
   color-scheme: dark;
 
-  /* Typography */
-  --font-display: 'Unbounded', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* Fonts are injected as CSS variables by next/font (see layout.tsx). */
 
   /* Surfaces — blue-black */
   --bg: #04060c;
