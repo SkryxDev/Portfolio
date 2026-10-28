@@ -1,4 +1,4 @@
-import { Blocks, Bot, Code2, Server } from 'lucide-react'
+import { Bot, Code2, Laptop, Server } from 'lucide-react'
 
 export const siteConfig = {
   name: 'SkryxDev',
@@ -6,21 +6,21 @@ export const siteConfig = {
   github: 'https://github.com/skryxdev',
   githubLabel: 'github.com/skryxdev',
   discord: 'skryxdev',
-  location: 'Vicenza, Italy',
   age: 16,
 }
 
 export const terminalLines: Array<{ type: 'cmd' | 'out'; text: string }> = [
   { type: 'cmd', text: 'whoami' },
-  { type: 'out', text: 'skryxdev — 16 y/o student developer' },
+  { type: 'out', text: 'skryxdev, 16 y/o student developer' },
   { type: 'cmd', text: 'ls ~/projects' },
-  { type: 'out', text: 'websites/  mc-plugins/  discord-bots/  linux/' },
-  { type: 'cmd', text: 'cat status.txt' },
-  { type: 'out', text: 'open to small projects — say hi' },
+  { type: 'out', text: 'Trace/  portfolio/  websites/' },
+  { type: 'cmd', text: 'cat focus.txt' },
+  { type: 'out', text: 'web + swift (macOS, iOS)' },
 ]
 
 export const navItems = [
   { label: 'About', href: '#about' },
+  { label: 'Projects', href: '#projects' },
   { label: 'Skills', href: '#skills' },
   { label: 'Work', href: '#work' },
   { label: 'Contact', href: '#contact' },
@@ -28,54 +28,40 @@ export const navItems = [
 
 export const services = [
   {
+    icon: Laptop,
+    title: 'Mac & iPhone apps',
+    description:
+      'Native apps for macOS and iOS in Swift and SwiftUI. When SwiftUI is not enough I use AppKit, like for the menu bar panel in Trace.',
+    details: ['Swift', 'SwiftUI', 'AppKit', 'Xcode'],
+  },
+  {
     icon: Code2,
     title: 'Websites',
     description:
-      'Fast, modern landing pages and small apps built with React and Next.js — styled with Tailwind CSS and shipped quickly.',
+      'Landing pages and small web apps with React and Next.js, written in TypeScript. Fast to load and easy to keep updated.',
     details: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'],
   },
   {
     icon: Bot,
-    title: 'Bots & APIs',
+    title: 'Bots & Minecraft plugins',
     description:
-      'Discord bots and REST APIs in Node.js, Express and Spring Boot, glued together with webhooks and clean JSON.',
-    details: ['Node.js', 'Express', 'Spring Boot', 'Webhooks'],
-  },
-  {
-    icon: Blocks,
-    title: 'Minecraft Plugins',
-    description:
-      'Custom Paper / Spigot / Bukkit plugins in Java and Kotlin: commands, events, configs, permissions and small utilities.',
-    details: ['Paper API', 'Spigot API', 'Bukkit API', 'Gradle', 'Maven'],
+      'Discord bots in Node.js and Paper / Spigot plugins in Java and Kotlin. Commands, events, configs, the usual stuff.',
+    details: ['discord.js', 'Node.js', 'Java', 'Kotlin', 'Paper API'],
   },
   {
     icon: Server,
     title: 'Servers & Linux',
     description:
-      'Linux boxes and panels: Docker containers, Proxmox and Pterodactyl setups, with firewalls and hardening basics.',
-    details: ['Linux', 'Docker', 'Proxmox', 'Pterodactyl', 'Firewalls'],
+      'Linux servers with Docker, Proxmox and Pterodactyl. This site runs on one of them.',
+    details: ['Linux', 'Docker', 'Proxmox', 'Pterodactyl'],
   },
 ]
 
-export const skillGroups = [
-  {
-    title: 'Frontend',
-    items: ['React', 'Next.js', 'JavaScript', 'TypeScript', 'Vite', 'Tailwind CSS'],
-  },
-  {
-    title: 'Bots & APIs',
-    items: ['Node.js', 'discord.js', 'Express', 'REST', 'Webhooks', 'Spring Boot'],
-  },
-  {
-    title: 'Minecraft',
-    items: ['Java', 'Kotlin', 'Gradle', 'Maven', 'Paper API', 'Spigot API', 'Bukkit API', 'YAML'],
-  },
-  {
-    title: 'Servers',
-    items: ['Linux', 'Docker', 'Pterodactyl', 'Proxmox', 'Firewalls'],
-  },
-  {
-    title: 'Databases',
-    items: ['MySQL', 'MariaDB', 'PostgreSQL', 'Redis', 'MongoDB', 'SQLite'],
-  },
-]
+export const trace = {
+  name: 'Trace',
+  icon: '/trace-icon.png',
+  repo: 'https://github.com/SkryxDev/Trace',
+  download: 'https://github.com/SkryxDev/Trace/releases/latest',
+  tags: ['macOS', 'Swift 6', 'SwiftUI', 'AppKit'],
+  status: '1.0 beta',
+}

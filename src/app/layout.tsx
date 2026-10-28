@@ -30,11 +30,11 @@ const THEME_INIT = `(() => {
 export const metadata: Metadata = {
   title: 'SkryxDev',
   description:
-    'SkryxDev — student developer from Vicenza, Italy. Websites, Minecraft plugins, Discord bots, and Linux server setups.',
+    'SkryxDev, student developer. Websites with React and Next.js, and apps for macOS and iOS with Swift and SwiftUI.',
   icons: { icon: '/favicon.svg' },
   openGraph: {
     title: 'SkryxDev',
-    description: 'Websites, Minecraft plugins, Discord bots, and Linux server setups.',
+    description: 'Websites, and apps for macOS and iOS with Swift and SwiftUI.',
     type: 'website',
   },
 }

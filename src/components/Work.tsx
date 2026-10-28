@@ -23,15 +23,15 @@ export function Work() {
 
             return (
               <Reveal delay={80 + index * 60} key={service.title}>
-                <article className="work-row">
-                  <h3 className="work-title">
-                    <Icon size={16} aria-hidden="true" />
-                    {service.title}
-                  </h3>
-                  <div className="work-info">
-                    <p className="work-description">{service.description}</p>
-                    <p className="work-tags">{service.details.join(' · ')}</p>
+                <article className="work-card">
+                  <div className="work-head">
+                    <span className="work-icon">
+                      <Icon size={19} aria-hidden="true" />
+                    </span>
+                    <h3 className="work-title">{service.title}</h3>
                   </div>
+                  <p className="work-description">{service.description}</p>
+                  <p className="work-tags">{service.details.join(' · ')}</p>
                 </article>
               </Reveal>
             )

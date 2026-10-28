@@ -19,8 +19,8 @@ export function Hero() {
           </h1>
 
           <p className="hero-text">
-            I'm {siteConfig.age} and I build websites, Minecraft plugins, Discord bots, and small
-            Linux setups — from the browser down to the server room.
+            I'm {siteConfig.age} and I make websites and apps for the Mac and iPhone. On the web I
+            use React and Next.js, on Apple platforms Swift and SwiftUI.
           </p>
 
           <div className="hero-actions">
