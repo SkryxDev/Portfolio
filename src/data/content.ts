@@ -65,3 +65,13 @@ export const trace = {
   tags: ['macOS', 'Swift 6', 'SwiftUI', 'AppKit'],
   status: '1.0 beta',
 }
+
+export const flowgorithm = {
+  name: 'FlowGorithmForMac',
+  icon: '/flowgorithm-icon.png',
+  screenshot: '/flowgorithm-screenshot.webp',
+  repo: 'https://github.com/SkryxDev/FlowGorithmForMac',
+  download: 'https://github.com/SkryxDev/FlowGorithmForMac/releases/latest',
+  tags: ['macOS 26', 'Swift 6', 'SwiftUI', 'Apple silicon'],
+  status: '1.0',
+}

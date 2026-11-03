@@ -1380,9 +1380,91 @@ kbd + kbd {
   margin-top: 1.8rem;
 }
 
+.reveal + .reveal > .project-card {
+  margin-top: 1.25rem;
+}
+
+.project-card.wide {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+}
+
+.project-card.wide .project-info {
+  padding: 0.5rem 0.5rem 0;
+}
+
+.project-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem clamp(2rem, 5vw, 3.5rem);
+}
+
+.project-columns .project-description + .project-description {
+  margin-top: 0;
+}
+
+.project-name {
+  overflow-wrap: anywhere;
+}
+
+.project-description code {
+  padding: 0.1em 0.35em;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+.project-shot {
+  position: relative;
+  margin: 0;
+}
+
+.project-shot::before {
+  content: '';
+  position: absolute;
+  inset: 8% 6%;
+  z-index: 0;
+  border-radius: 50%;
+  background: rgba(106, 97, 245, 0.45);
+  filter: blur(60px);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.project-shot img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-card:hover .project-shot img {
+  transform: translateY(-4px) scale(1.01);
+}
+
 @media (max-width: 960px) {
   .project-card {
     grid-template-columns: 1fr;
+  }
+
+  .project-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .project-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .project-card.wide .project-info {
+    padding: 0.25rem 0.25rem 0;
   }
 
   .project-info {
@@ -2203,6 +2285,19 @@ a.contact-link:hover {
 }
 
 @media (max-width: 560px) {
+  .project-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .project-head {
+    gap: 0.8rem;
+  }
+
+  .project-name {
+    font-size: 1.15rem;
+  }
+
   .loading-status {
     bottom: 1.3rem;
     font-size: 0.7rem;

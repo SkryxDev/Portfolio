@@ -1,5 +1,5 @@
 import { Download } from 'lucide-react'
-import { trace } from '../data/content'
+import { flowgorithm, trace } from '../data/content'
 import { GitHubIcon } from './GitHubIcon'
 import { Reveal } from './Reveal'
 import { TracePreview } from './TracePreview'
@@ -72,6 +72,78 @@ export function Projects() {
             </div>
 
             <TracePreview />
+          </article>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <article className="project-card wide">
+            <div className="project-info">
+              <div className="project-head">
+                <img
+                  className="project-icon"
+                  src={flowgorithm.icon}
+                  alt=""
+                  width={64}
+                  height={64}
+                />
+                <div>
+                  <h3 className="project-name">{flowgorithm.name}</h3>
+                  <p className="project-status">
+                    <span className="project-status-dot" aria-hidden="true" />
+                    {flowgorithm.status}
+                  </p>
+                </div>
+              </div>
+
+              <div className="project-columns">
+                <p className="project-description">
+                  Write and run programs as flowcharts on the Mac. It opens and saves Flowgorithm's{' '}
+                  <code>.fprg</code> files, so school exercises move freely between a Windows PC and
+                  a Mac. Run a program one shape at a time while you watch the variables change, and
+                  read it as Python, Java, C++ and more right next to the chart.
+                </p>
+
+                <div>
+                  <p className="project-description">
+                    There's also an optional AI assistant with free models. It explains programs
+                    and, in Study Mode, gives you a hint at a time instead of the solution.
+                  </p>
+
+                  <p className="project-tags">{flowgorithm.tags.join(' · ')}</p>
+
+                  <div className="project-actions">
+                    <a
+                      className="button primary"
+                      href={flowgorithm.download}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Download size={16} aria-hidden="true" />
+                      Download
+                    </a>
+                    <a
+                      className="button ghost"
+                      href={flowgorithm.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <GitHubIcon size={16} />
+                      Source
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <figure className="project-shot">
+              <img
+                src={flowgorithm.screenshot}
+                alt="FlowGorithmForMac in Study Mode: the assistant shows an example While loop and proposes renaming a variable on the chart"
+                width={1404}
+                height={840}
+                loading="lazy"
+              />
+            </figure>
           </article>
         </Reveal>
       </div>
