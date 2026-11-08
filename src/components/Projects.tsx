@@ -1,5 +1,5 @@
-import { Download } from 'lucide-react'
-import { flowgorithm, trace } from '../data/content'
+import { Download, Globe2 } from 'lucide-react'
+import { draftcraft, flowgorithm, trace } from '../data/content'
 import { GitHubIcon } from './GitHubIcon'
 import { Reveal } from './Reveal'
 import { TracePreview } from './TracePreview'
@@ -18,6 +18,87 @@ export function Projects() {
             </p>
             <h2 className="section-title">Projects</h2>
           </div>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <article className="project-card wide">
+            <div className="project-info">
+              <div className="project-head">
+                <img
+                  className="project-icon"
+                  src={draftcraft.icon}
+                  alt=""
+                  width={64}
+                  height={64}
+                />
+                <div>
+                  <h3 className="project-name">{draftcraft.name}</h3>
+                  <p className="project-status">
+                    <span className="project-status-dot" aria-hidden="true" />
+                    {draftcraft.status}
+                  </p>
+                </div>
+              </div>
+
+              <div className="project-columns">
+                <p className="project-description">
+                  A 2D drafting app with the command line and familiar Windows-style ribbon. Built
+                  in pure Rust, DraftCraft runs natively on macOS, Windows and Linux, with a
+                  consistent workflow across all three.
+                </p>
+
+                <div>
+                  <p className="project-description">
+                    Open and save DWG and DXF drawings, then work with layers, dimensions, hatches,
+                    blocks and layouts. It also adds exact conic arcs and an MCP server that lets
+                    AI agents inspect and edit drawings.
+                  </p>
+
+                  <p className="project-tags">{draftcraft.tags.join(' · ')}</p>
+
+                  <div className="project-actions">
+                    <a
+                      className="button primary"
+                      href={draftcraft.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Globe2 size={16} aria-hidden="true" />
+                      Website
+                    </a>
+                    <a
+                      className="button ghost"
+                      href={draftcraft.download}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Download size={16} aria-hidden="true" />
+                      Download
+                    </a>
+                    <a
+                      className="button ghost"
+                      href={draftcraft.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <GitHubIcon size={16} />
+                      Source
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <figure className="project-shot">
+              <img
+                src={draftcraft.screenshot}
+                alt="DraftCraft showing its ribbon interface and a dimensioned mechanical bracket drawing"
+                width={1600}
+                height={960}
+                loading="lazy"
+              />
+            </figure>
+          </article>
         </Reveal>
 
         <Reveal delay={100}>
@@ -146,6 +227,7 @@ export function Projects() {
             </figure>
           </article>
         </Reveal>
+
       </div>
     </section>
   )

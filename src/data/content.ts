@@ -75,3 +75,14 @@ export const flowgorithm = {
   tags: ['macOS 26', 'Swift 6', 'SwiftUI', 'Apple silicon'],
   status: '1.0',
 }
+
+export const draftcraft = {
+  name: 'DraftCraft™',
+  icon: '/draftcraft-icon.png',
+  screenshot: '/draftcraft-ribbon.png',
+  repo: 'https://github.com/SkryxDev/DraftCraft',
+  website: 'https://www.draftcraft.dev/',
+  download: 'https://github.com/SkryxDev/DraftCraft/releases/latest',
+  tags: ['Rust', 'egui', 'macOS', 'Windows', 'Linux', 'DWG / DXF', 'MCP'],
+  status: 'In active development',
+}
